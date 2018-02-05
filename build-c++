@@ -1,12 +1,10 @@
 #!/bin/bash
 
 SRC=$1
-SRCDIR=$(dirname "${SRC}")
 shift
 
-CURDIR=`pwd`
-cd "${SRCDIR}"
+SRCDIR=$(dirname "${SRC}")
+NAME=$(basename "${SRC}")
+NAME=${NAME%.*}
 
-g++ -fPIC -Wall "$@" "${SRC}" -o $(basename "${SRC}")
-
-cd "${CURDIR}"
+g++ -fPIC -Wall "$@" "${SRC}" -o "${SRCDIR}/${NAME}"
