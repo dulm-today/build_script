@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# usage: build-make <dir> <args>
+
+CURDIR=`pwd`
+
+cd "$1"
+shift
+
+make "$@"
+
+cd "$CURDIR"
