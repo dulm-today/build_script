@@ -55,7 +55,7 @@ if /i "%SYS%" == "linux" (
     )
 ) else (
     if "%REMOTE%" neq "" (
-        "%SHELL%" -c "ssh %USER%@%HOST% cmd.exe /c %ARGS% | sed s#%REMOTE%#%LOCAL%#g"
+        "%SHELL%" -c "ssh %USER%@%HOST% cmd.exe /c %ARGS% | tr '\\\\' '/' | sed s#%REMOTE%#%LOCAL%#g"
     ) else (
         "%SHELL%" -c "ssh %USER%@%HOST% cmd.exe /c %ARGS%"
     )
