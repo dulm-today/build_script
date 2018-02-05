@@ -13,9 +13,9 @@
 @echo rebuild solution %~n1 project %2 - %3 %4 ...
 
 @if "%5" == "" (
-    "%VC6%" "%~f1" /make "%2 - %3 %4" /rebuild /out "%5\%~n1-%2.%3.%4.log"
-) else (
     "%VC6%" "%~f1" /make "%2 - %3 %4" /rebuild
+) else (
+    "%VC6%" "%~f1" /make "%2 - %3 %4" /rebuild /out "%5\%~n1-%2.%3.%4.log"
 )
 
 @if %errorlevel% EQU 0 (
