@@ -1,3 +1,12 @@
 #!/bin/bash
 
-g++ $1
+SRC=$1
+SRCDIR=$(dirname "${SRC}")
+shift
+
+CURDIR=`pwd`
+cd "${SRCDIR}"
+
+g++ -fPIC -Wall "$@" "${SRC}" -o $(basename "${SRC}")
+
+cd "${CURDIR}"
