@@ -1,6 +1,6 @@
 
 :: rebuild VS2010 solution
-:: usage: VC2010-buildAll.bat <.sln path> <config[,config]> [<out log dir>]
+:: usage: VC2010-buildAll.bat <.sln path> <config[-platform][:config[-platform]]> [<out log dir>]
 
 @if "%VS100COMNTOOLS%"=="" (
     call colstr 0c "Error - VS2010 is not found! Check the value of ENV 'VS100COMNTOOLS'."
@@ -11,8 +11,12 @@
 
 @echo rebuild solution %~n1 ...
 
-@for %%i in (%~2) do @(
+@set CONFIGS="%~2"
+:LOOP
+@for /f "delims=:, tokens=1,*" %%i in (%CONFIGS%) do @(
     call :VS2010_rebuildAllConfig "%~f1" %%i "%3"
+    set CONFIGS="%%j"
+    goto :LOOP
 )
 @echo rebuild solution %~n1 ... DONE
 
@@ -22,10 +26,13 @@
 :VS2010_rebuildAllConfig
 @echo rebuild solution %~n1 %~2 ...
 
+@set CONFIG=%~2
+@set CONFIG_BUILD=%CONFIG:-=^|%
+
 @if "%~3" == "" (
-    "%VS2010%" "%~f1" /rebuild %~2
+    "%VS2010%" "%~f1" /rebuild "%CONFIG_BUILD%"
 ) else (
-    "%VS2010%" "%~f1" /rebuild %~2 /out "%~3\%~n1-%~2.log" >nul 2>nul
+    "%VS2010%" "%~f1" /rebuild "%CONFIG_BUILD%" /out "%~3\%~n1-%CONFIG%.log" >nul 2>nul
 )
 
 @if %errorlevel% EQU 0 (

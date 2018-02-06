@@ -1,6 +1,6 @@
 
 :: build VS2010 project
-:: usage: VC2010-build.bat <.sln path> <project> <platform> <config[,config]> [<out log dir>]
+:: usage: VC2010-build.bat <.sln path> <project> <platform> <config> [<out log dir>]
 
 @if "%VS100COMNTOOLS%"=="" (
     call colstr 0c "Error - VS2010 is not found! Check the value of ENV 'VS100COMNTOOLS'."
