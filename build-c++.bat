@@ -2,6 +2,11 @@
 
 set MSC_VER=
 
+if /i "%~1" == "-h" (
+    echo usage: %~0 ^<VC6^|VS2010^|VS2015^> ^<src^> ...
+    goto:eof
+)
+
 if /i "%~1" == "VC6" (
     call "%MSDevDir%\\..\\..\\VC98\\Bin\\vcvars32.bat"
     set MSC_VER=1200
@@ -18,7 +23,7 @@ if /i "%~1" == "VS2015" (
 )
 
 if "%MSC_VER%" == "" (
-    call colstr 0c "Error: no parameter for compiler version"
+    call colstr 0c "Error - no parameter for compiler version"
     echo.&pause&goto:eof
 )
 
